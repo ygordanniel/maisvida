@@ -1,6 +1,8 @@
 package br.med.maisvida.security.jwt;
 
+import br.med.maisvida.model.Usuario;
 import br.med.maisvida.security.AccountCredentials;
+import br.med.maisvida.service.UsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,12 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    public JWTLoginFilter(String url, AuthenticationManager authManager) {
+    private UsuarioService usuarioService;
+
+    public JWTLoginFilter(String url, AuthenticationManager authManager, UsuarioService usuarioService) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
+        this.usuarioService = usuarioService;
     }
 
     @Override
@@ -30,10 +38,16 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         AccountCredentials credentials = new ObjectMapper()
             .readValue(request.getInputStream(), AccountCredentials.class);
 
+        Usuario usuario = usuarioService.buscarPorEmailESenha(ofNullable(credentials.getEmail()), ofNullable(credentials.getSenha()));
+
+        if(usuario == null) {
+            return null;
+        }
+
         return getAuthenticationManager().authenticate(
             new UsernamePasswordAuthenticationToken(
-                credentials.getEmail(),
-                credentials.getPassword(),
+                usuario.getEmail(),
+                usuario.getSenha(),
                 Collections.emptyList()
             )
         );

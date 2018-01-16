@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class AccountCredentials {
     private String email;
-    private String password;
+    private String senha;
 }
