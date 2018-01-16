@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.01.01" author="ygor.azevedo">
+        <createTable schemaName="public" tableName="tb_usuario">
+            <column name="id_usuario" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="email_usuario" type="varchar"/>
+            <column name="senha_usuario" type="varchar"/>
+        </createTable>
+
+        <createSequence sequenceName="tb_usuario_seq"
+                        schemaName="public" startValue="1" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="1.01.02" author="ygor.azevedo">
+        <createTable schemaName="public" tableName="tb_especialidade">
+            <column name="id_especialidade" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ds_especialidade" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.01.03" author="ygor.azevedo">
+        <createTable schemaName="public" tableName="td_estado">
+            <column name="id_estado" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="nome_estado" type="varchar"/>
+            <column name="sig_estado" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.01.04" author="ygor.azevedo">
+        <createTable schemaName="public" tableName="td_cidade">
+            <column name="id_cidade" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="nome_medico" type="varchar"/>
+            <column name="co_estado" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="td_cidade"
+                baseColumnNames="co_estado"
+                constraintName="fk_estado"
+                referencedTableName="td_estado"
+                referencedColumnNames="id_estado"/>
+    </changeSet>
+
+    <changeSet id="1.01.05" author="ygor.azevedo">
+        <createTable schemaName="public" tableName="tb_medico">
+            <column name="id_medico" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="prim_nome_medico" type="varchar"/>
+            <column name="ult_nome_medico" type="varchar"/>
+            <column name="email_medico" type="varchar"/>
+            <column name="ic_ativo" type="varchar"/>
+            <column name="ic_ocupado" type="varchar"/>
+            <column name="co_especialidade" type="bigint"/>
+            <column name="co_cidade" type="bigint"/>
+        </createTable>
+
+        <createSequence sequenceName="tb_medico_seq"
+                        schemaName="public" startValue="1" incrementBy="1"/>
+
+        <addDefaultValue
+                tableName="tb_medico"
+                columnName="ic_ativo"
+                schemaName="public"
+                defaultValueBoolean="true"/>
+        <addDefaultValue
+                tableName="tb_medico"
+                columnName="ic_ocupado"
+                schemaName="public"
+                defaultValueBoolean="false"/>
+
+        <addForeignKeyConstraint
+                baseTableName="tb_medico"
+                baseColumnNames="co_especialidade"
+                constraintName="fk_especialidade"
+                referencedTableName="tb_especialidade"
+                referencedColumnNames="id_especialidade"/>
+
+        <addForeignKeyConstraint
+                baseTableName="tb_medico"
+                baseColumnNames="co_cidade"
+                constraintName="fk_cidade"
+                referencedTableName="td_cidade"
+                referencedColumnNames="id_cidade"/>
+
+    </changeSet>
+
+    <changeSet id="1.01.06" author="ygor.azevedo">
+
+        <insert schemaName="public"
+                tableName="tb_usuario">
+            <column name="id_usuario" value="0"/>
+            <column name="email_usuario" value="ygordanniel@gmail.com"/>
+            <column name="senha_usuario" value="12345678"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="1.01.07" author="ygor.azevedo">
+
+        <insert schemaName="public"
+                tableName="tb_especialidade">
+            <column name="id_especialidade" value="0"/>
+            <column name="ds_especialidade" value="Cardiologista"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="tb_especialidade">
+            <column name="id_especialidade" value="1"/>
+            <column name="ds_especialidade" value="Ortopedista"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="tb_especialidade">
+            <column name="id_especialidade" value="2"/>
+            <column name="ds_especialidade" value="Neurologista"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="tb_especialidade">
+            <column name="id_especialidade" value="3"/>
+            <column name="ds_especialidade" value="Clinico Geral"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="1.01.08" author="ygor.azevedo">
+
+        <insert schemaName="public"
+                tableName="td_estado">
+            <column name="id_estado" value="0"/>
+            <column name="nome_estado" value="Distrito Federal"/>
+            <column name="sig_estado" value="DF"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="td_estado">
+            <column name="id_estado" value="1"/>
+            <column name="nome_estado" value="Rio de Janeiro"/>
+            <column name="sig_estado" value="RJ"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="td_estado">
+            <column name="id_estado" value="2"/>
+            <column name="nome_estado" value="São Paulo"/>
+            <column name="sig_estado" value="SP"/>
+        </insert>
+
+    </changeSet>
+
+    <changeSet id="1.01.09" author="ygor.azevedo">
+
+        <insert schemaName="public"
+                tableName="td_cidade">
+            <column name="id_cidade" value="0"/>
+            <column name="nome_medico" value="Brasília"/>
+            <column name="co_estado" value="0"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="td_cidade">
+            <column name="id_cidade" value="1"/>
+            <column name="nome_medico" value="Rio de Janeiro"/>
+            <column name="co_estado" value="1"/>
+        </insert>
+
+        <insert schemaName="public"
+                tableName="td_cidade">
+            <column name="id_cidade" value="2"/>
+            <column name="nome_medico" value="São Paulo"/>
+            <column name="co_estado" value="2"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
