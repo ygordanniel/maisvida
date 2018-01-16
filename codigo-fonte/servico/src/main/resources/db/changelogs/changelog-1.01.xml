@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
+    <!--USUARIO-->
     <changeSet id="1.01.01" author="ygor.azevedo">
-        <createTable schemaName="public" tableName="tb_usuario">
+        <createTable schemaName="maisvida" tableName="tb_usuario">
             <column name="id_usuario" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -11,20 +12,25 @@
         </createTable>
 
         <createSequence sequenceName="tb_usuario_seq"
-                        schemaName="public" startValue="1" incrementBy="1"/>
+                        schemaName="maisvida" startValue="1" incrementBy="1"/>
     </changeSet>
 
+    <!--ESPECIALIDADE-->
     <changeSet id="1.01.02" author="ygor.azevedo">
-        <createTable schemaName="public" tableName="tb_especialidade">
+        <createTable schemaName="maisvida" tableName="tb_especialidade">
             <column name="id_especialidade" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="ds_especialidade" type="varchar"/>
         </createTable>
+
+        <createSequence sequenceName="tb_especialidade_seq"
+                        schemaName="maisvida" startValue="1" incrementBy="1"/>
     </changeSet>
 
+    <!--ESTADO-->
     <changeSet id="1.01.03" author="ygor.azevedo">
-        <createTable schemaName="public" tableName="td_estado">
+        <createTable schemaName="maisvida" tableName="td_estado">
             <column name="id_estado" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -33,12 +39,13 @@
         </createTable>
     </changeSet>
 
+    <!--CIDADE-->
     <changeSet id="1.01.04" author="ygor.azevedo">
-        <createTable schemaName="public" tableName="td_cidade">
+        <createTable schemaName="maisvida" tableName="td_cidade">
             <column name="id_cidade" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="nome_medico" type="varchar"/>
+            <column name="nome_cidade" type="varchar"/>
             <column name="co_estado" type="bigint"/>
         </createTable>
 
@@ -50,33 +57,23 @@
                 referencedColumnNames="id_estado"/>
     </changeSet>
 
+    <!--MEDICO-->
     <changeSet id="1.01.05" author="ygor.azevedo">
-        <createTable schemaName="public" tableName="tb_medico">
+        <createTable schemaName="maisvida" tableName="tb_medico">
             <column name="id_medico" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="prim_nome_medico" type="varchar"/>
             <column name="ult_nome_medico" type="varchar"/>
             <column name="email_medico" type="varchar"/>
-            <column name="ic_ativo" type="varchar"/>
-            <column name="ic_ocupado" type="varchar"/>
+            <column name="ic_ativo" type="boolean"/>
+            <column name="ic_ocupado" type="boolean"/>
             <column name="co_especialidade" type="bigint"/>
             <column name="co_cidade" type="bigint"/>
         </createTable>
 
         <createSequence sequenceName="tb_medico_seq"
-                        schemaName="public" startValue="1" incrementBy="1"/>
-
-        <addDefaultValue
-                tableName="tb_medico"
-                columnName="ic_ativo"
-                schemaName="public"
-                defaultValueBoolean="true"/>
-        <addDefaultValue
-                tableName="tb_medico"
-                columnName="ic_ocupado"
-                schemaName="public"
-                defaultValueBoolean="false"/>
+                        schemaName="maisvida" startValue="1" incrementBy="1"/>
 
         <addForeignKeyConstraint
                 baseTableName="tb_medico"
@@ -94,9 +91,10 @@
 
     </changeSet>
 
+    <!--INSERT USUARIO-->
     <changeSet id="1.01.06" author="ygor.azevedo">
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="tb_usuario">
             <column name="id_usuario" value="0"/>
             <column name="email_usuario" value="ygordanniel@gmail.com"/>
@@ -105,27 +103,28 @@
 
     </changeSet>
 
+    <!--INSERT ESPECIALIDADE-->
     <changeSet id="1.01.07" author="ygor.azevedo">
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="tb_especialidade">
             <column name="id_especialidade" value="0"/>
             <column name="ds_especialidade" value="Cardiologista"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="tb_especialidade">
             <column name="id_especialidade" value="1"/>
             <column name="ds_especialidade" value="Ortopedista"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="tb_especialidade">
             <column name="id_especialidade" value="2"/>
             <column name="ds_especialidade" value="Neurologista"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="tb_especialidade">
             <column name="id_especialidade" value="3"/>
             <column name="ds_especialidade" value="Clinico Geral"/>
@@ -133,23 +132,24 @@
 
     </changeSet>
 
+    <!--INSERT ESTADO-->
     <changeSet id="1.01.08" author="ygor.azevedo">
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_estado">
             <column name="id_estado" value="0"/>
             <column name="nome_estado" value="Distrito Federal"/>
             <column name="sig_estado" value="DF"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_estado">
             <column name="id_estado" value="1"/>
             <column name="nome_estado" value="Rio de Janeiro"/>
             <column name="sig_estado" value="RJ"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_estado">
             <column name="id_estado" value="2"/>
             <column name="nome_estado" value="São Paulo"/>
@@ -158,26 +158,27 @@
 
     </changeSet>
 
+    <!--INSERT CIDADE-->
     <changeSet id="1.01.09" author="ygor.azevedo">
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_cidade">
             <column name="id_cidade" value="0"/>
-            <column name="nome_medico" value="Brasília"/>
+            <column name="nome_cidade" value="Brasília"/>
             <column name="co_estado" value="0"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_cidade">
             <column name="id_cidade" value="1"/>
-            <column name="nome_medico" value="Rio de Janeiro"/>
+            <column name="nome_cidade" value="Rio de Janeiro"/>
             <column name="co_estado" value="1"/>
         </insert>
 
-        <insert schemaName="public"
+        <insert schemaName="maisvida"
                 tableName="td_cidade">
             <column name="id_cidade" value="2"/>
-            <column name="nome_medico" value="São Paulo"/>
+            <column name="nome_cidade" value="São Paulo"/>
             <column name="co_estado" value="2"/>
         </insert>
 
