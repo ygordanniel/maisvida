@@ -1,6 +1,7 @@
 package br.med.maisvida.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,8 @@ public abstract class BaseService<E extends Serializable, R extends JpaRepositor
         return repository.findOne(id);
     }
 
-    public List<E> listar() {
-        return repository.findAll();
+    public List<E> listarOrdenado() {
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        return repository.findAll(sort);
     }
 }
