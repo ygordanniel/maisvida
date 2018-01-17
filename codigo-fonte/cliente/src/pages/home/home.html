@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Desafio MaisVida</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -21,6 +21,14 @@
       <ion-col>{{medico.email}}</ion-col>
       <ion-col col-1><ion-checkbox [ngModel]="medico.isAtivo" disabled="true"></ion-checkbox></ion-col>
       <ion-col col-1><ion-radio value="friends" [checked]="medico.isOcupado" disabled></ion-radio></ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 2em">
+      <ion-col col-2>
+        <button ion-button color="secondary" style="width: 100%" (click)="cadastrar()">
+          <ion-icon name="person-add" style="margin-right: 10px"></ion-icon>
+          Novo Médico
+        </button>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

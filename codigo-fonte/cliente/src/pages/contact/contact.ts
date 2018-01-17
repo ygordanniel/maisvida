@@ -45,7 +45,7 @@ export class ContactPage {
   }
 
   salvar() {
-    this.medicoService.putMedico(this.medicoEditar).then(result => {
+    this.medicoService.putMedico(this.medicoEditar).then((result: Medico) => {
       let title = this.isNovo ? 'Cadastro Realizado!' : 'Dados Atualizados!'
       let subTitle = this.isNovo ?
         'Dr(a). ' + result.primeiroNome + ' ' +  result.ultimoNome + ' cadastrado com sucesso!': 
@@ -68,10 +68,6 @@ export class ContactPage {
 
   voltar() {
     this.navCtrl.pop();
-  }
-
-  cancelar() {
-    this.navCtrl.setRoot(HomePage);
   }
 
   compareFn(e1: any, e2: any): boolean {

@@ -26,4 +26,8 @@ export class HomePage {
     this.navCtrl.push(ContactPage, {isVisualizar: true});
   }
 
+  cadastrar() {
+    this.navCtrl.push(ContactPage, {isVisualizar: false});
+  }
+
 }

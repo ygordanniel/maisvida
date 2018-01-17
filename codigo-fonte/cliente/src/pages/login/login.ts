@@ -23,7 +23,6 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
     this.usuario.email = 'ygordanniel@gmail.com';
     this.usuario.senha = '12345678';
-    this.login();
   }
 
   login() {

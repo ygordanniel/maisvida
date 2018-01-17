@@ -10,7 +10,6 @@ import { Medico } from '../../models/medico';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = ContactPage;
 
   constructor() {
 
