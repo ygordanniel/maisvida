@@ -5,13 +5,22 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-grid>
+    <ion-row class="table-row">
+      <ion-col col-1><th>#</th></ion-col>
+      <ion-col><th>Primeiro Nome</th></ion-col>
+      <ion-col><th>Ultimo Nome</th></ion-col>
+      <ion-col><th>Email</th></ion-col>
+      <ion-col col-1><th>Ativo</th></ion-col>
+      <ion-col col-1><th>Ocupado</th></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let medico of medicos" class="table-row" (click)="editar(medico)">
+      <ion-col col-1>{{medico.id}}</ion-col>
+      <ion-col>{{medico.primeiroNome}}</ion-col>
+      <ion-col>{{medico.ultimoNome}}</ion-col>
+      <ion-col>{{medico.email}}</ion-col>
+      <ion-col col-1><ion-checkbox [ngModel]="medico.isAtivo" disabled="true"></ion-checkbox></ion-col>
+      <ion-col col-1><ion-radio value="friends" [checked]="medico.isOcupado" disabled></ion-radio></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

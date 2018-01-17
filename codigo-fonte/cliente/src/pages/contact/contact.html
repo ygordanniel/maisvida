@@ -7,11 +7,155 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  <ion-grid *ngIf="isVisualizar">
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Primeiro Nome</ion-label>
+          <ion-input type="text" [value]="medicoEditar.primeiroNome" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Ultimo Nome</ion-label>
+          <ion-input type="text" [value]="medicoEditar.ultimoNome" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Especialidade</ion-label>
+          <ion-input type="text" [value]="medicoEditar.especialidade.descricao" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input type="email" [value]="medicoEditar.email" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Ativo</ion-label>
+          <ion-input type="text" [value]="medicoEditar.isAtivo ? 'Sim' : 'Não'" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Status</ion-label>
+          <ion-input type="text" [value]="medicoEditar.isOcupado ? 'Ocupado' : 'Disponível'" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Estado</ion-label>
+          <ion-input type="text" [value]="medicoEditar.cidade.estado.sigla" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Cidade</ion-label>
+          <ion-input type="text" [value]="medicoEditar.cidade.nome" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col col-2>
+            <button ion-button color="secondary" style="width: 100%" (click)="editar()">Editar</button>
+        </ion-col>
+        <ion-col col-2>
+            <button ion-button color="light" style="width: 100%" (click)="voltar()">Voltar</button>
+        </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="!isVisualizar">
+      <ion-row>
+  
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Primeiro Nome</ion-label>
+            <ion-input type="text" [(ngModel)]="medicoEditar.primeiroNome"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Ultimo Nome</ion-label>
+            <ion-input type="text" [(ngModel)]="medicoEditar.ultimoNome"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item style="margin-top: 1.5em;">
+            <ion-label>Especialidade</ion-label>
+            <ion-select [(ngModel)]="medicoEditar.especialidade" [compareWith]="compareFn">
+              <ion-option *ngFor="let especialidade of especialidades" [value]="especialidade">{{especialidade.descricao}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+  
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" [(ngModel)]="medicoEditar.email"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item style="margin-top: 1.5em;">
+            <ion-label>Ativo</ion-label>
+            <ion-checkbox [(ngModel)]="medicoEditar.isAtivo"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-list radio-group [(ngModel)]="medicoEditar.isOcupado">
+            <ion-item>
+              <ion-label>Ocupado</ion-label>
+              <ion-radio value="true"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Disponivel</ion-label>
+              <ion-radio value="false" checked></ion-radio>
+            </ion-item>
+            </ion-list>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label floating>Estado</ion-label>
+            <ion-input type="text" [value]="medicoEditar.cidade.estado.sigla" disabled></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item style="margin-top: 1.5em;">
+            <ion-label>Cidade</ion-label>
+            <ion-select [(ngModel)]="medicoEditar.cidade" [compareWith]="compareFn">
+              <ion-option *ngFor="let cidade of cidades" [value]="cidade">{{cidade.nome}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+          <ion-col col-2>
+              <button ion-button color="primary" style="width: 100%" (click)="salvar()">Salvar Médico</button>
+          </ion-col>
+          <ion-col col-2>
+              <button ion-button color="light" style="width: 100%" (click)="cancelar()">Cancelar</button>
+          </ion-col>
+      </ion-row>
+  
+    </ion-grid>
 </ion-content>
