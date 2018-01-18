@@ -63,6 +63,7 @@ export class ContactPage {
         subTitle: 'Erro ao tentar salvar o médico!',
         buttons: ['OK']
       });
+      alert.present();
     });
   }
 
@@ -75,7 +76,7 @@ export class ContactPage {
   }
 
   private listarFormularios() {
-    this.medicoService.getListaFormulario().then(result => {
+    this.medicoService.getListaFormulario().then((result: any) => {
       if(result) {
         this.estados = result.estado;
         this.cidades = result.cidade;

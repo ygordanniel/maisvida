@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { HttpResponse } from '@angular/common/http/src/response';
+import { CookieService } from 'ngx-cookie-service';
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -15,16 +16,24 @@ let API_BASE_URL = 'http://localhost:8080/maisvida/api/'
 @Injectable()
 export class AuthServiceProvider {
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, public cookieService: CookieService) {}
 
-  login(body, navCtrl: NavController) {
+  login(body, navCtrl: NavController, isCache) {
     this.postData(body, 'login').then((result: HttpResponse<string>) => {
       let jwt = result.headers.get('authorization');
       if(jwt) {
         localStorage.setItem('jwt', jwt);
+        if(isCache) {
+          this.cookieService.set('jwt', jwt);
+        }
         navCtrl.push(TabsPage, {}, {animate: false});
       }
     });
+  }
+
+  loginWithCache(navCtrl: NavController, jwt) {
+    localStorage.setItem('jwt', jwt);
+    navCtrl.push(TabsPage, {}, {animate: false});
   }
 
   private postData(body, path) {
