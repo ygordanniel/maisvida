@@ -21,6 +21,7 @@ export class LoginPage {
   usuario: Usuario  = new Usuario();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
+    //Usuario default
     this.usuario.email = 'ygordanniel@gmail.com';
     this.usuario.senha = '12345678';
   }

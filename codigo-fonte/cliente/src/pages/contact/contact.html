@@ -1,12 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      {{'Dr(a). ' + medicoEditar.primeiroNome + ' ' + medicoEditar.ultimoNome }}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+  <!-- VIEW PARA VISUALIZACAO DOS DADOS -->
   <ion-grid *ngIf="isVisualizar">
     <ion-row>
 
@@ -78,6 +80,7 @@
 
   </ion-grid>
 
+  <!-- VIEW PARA EDICAO/CADASTRO DOS DADOS -->
   <ion-grid *ngIf="!isVisualizar">
       <ion-row>
   

@@ -14,7 +14,7 @@
       <ion-col col-1><th>Ativo</th></ion-col>
       <ion-col col-1><th>Ocupado</th></ion-col>
     </ion-row>
-    <ion-row *ngFor="let medico of medicos" class="table-row" (click)="editar(medico)">
+    <ion-row *ngFor="let medico of medicos" class="table-row editable" (click)="editar(medico)">
       <ion-col col-1>{{medico.id}}</ion-col>
       <ion-col>{{medico.primeiroNome}}</ion-col>
       <ion-col>{{medico.ultimoNome}}</ion-col>
