@@ -21,6 +21,7 @@ A aplicação foi ultiliza [Spring Boot](https://projects.spring.io/spring-boot/
 
 A parte do cliente foi feita em [Ionic 3](https://ionicframework.com/) e para subir o cliente basta executar os comandos:
 
+	cd /codigo-fonte/cliente
 	npm i
 	ionic serve
 
