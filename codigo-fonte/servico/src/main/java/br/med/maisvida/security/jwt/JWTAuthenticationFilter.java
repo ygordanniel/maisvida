@@ -11,6 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * @see <a href="http://andreybleme.com/2017-04-01/autenticacao-com-jwt-no-spring-boot/">andreybleme blog</>
+ */
 public class JWTAuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)

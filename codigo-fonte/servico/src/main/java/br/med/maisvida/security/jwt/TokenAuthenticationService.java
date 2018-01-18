@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Date;
 
+/**
+ * @see <a href="http://andreybleme.com/2017-04-01/autenticacao-com-jwt-no-spring-boot/">andreybleme blog</>
+ */
 public class TokenAuthenticationService {
 
     static final long EXPIRATION_TIME = 860_000_000;

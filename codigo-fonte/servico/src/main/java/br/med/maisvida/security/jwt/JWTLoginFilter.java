@@ -21,6 +21,9 @@ import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
+/**
+ * @see <a href="http://andreybleme.com/2017-04-01/autenticacao-com-jwt-no-spring-boot/">andreybleme blog</>
+ */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     private UsuarioService usuarioService;
@@ -38,6 +41,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         AccountCredentials credentials = new ObjectMapper()
             .readValue(request.getInputStream(), AccountCredentials.class);
 
+        //Caso o usuario e senha nao existam, invalida a autenticacao
         Usuario usuario = usuarioService.buscarPorEmailESenha(ofNullable(credentials.getEmail()), ofNullable(credentials.getSenha()));
 
         if(usuario == null) {

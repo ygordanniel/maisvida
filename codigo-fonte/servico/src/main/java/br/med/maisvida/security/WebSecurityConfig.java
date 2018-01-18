@@ -31,6 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("CustomUserDetailsService")
     private UserDetailsService userDetailsService;
 
+    /**
+     * Configuracao CORS para o sistema funcionar como um webservice e so expor o necessario
+     * @return
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

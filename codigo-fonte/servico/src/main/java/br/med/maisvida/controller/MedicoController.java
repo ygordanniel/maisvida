@@ -66,7 +66,7 @@ public class MedicoController extends BaseController<MedicoService, MedicoDTO, M
         if(list == null || list.isEmpty()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(converter.converter(list, MedicoDTO.class), HttpStatus.OK);
+        return new ResponseEntity<>(converter.converter(list, MedicoDTO.class, false), HttpStatus.OK);
     }
 
     protected ResponseEntity buildResposta(Medico e) {

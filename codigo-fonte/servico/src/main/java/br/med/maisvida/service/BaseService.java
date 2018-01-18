@@ -10,6 +10,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Servico base com os metodos mais comuns de um servico padrao
+ * @param <E> entidade base
+ * @param <R> repositorio base
+ */
 public abstract class BaseService<E extends Serializable, R extends JpaRepository<E, Long> & JpaSpecificationExecutor<E>> {
 
     @Autowired

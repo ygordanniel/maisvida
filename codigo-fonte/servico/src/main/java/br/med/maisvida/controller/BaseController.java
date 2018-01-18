@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Controller base com os metodos mais comuns de um controller padrao
+ * @param <S> classe base de servico
+ * @param <DTO> dto base da entidade
+ * @param <E> entidade base
+ */
 @RestController
 public abstract class BaseController<S extends BaseService<E, ?>, DTO extends Serializable, E extends Serializable> {
 
