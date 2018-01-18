@@ -56,9 +56,9 @@ public class MedicoController extends BaseController<MedicoService, MedicoDTO, M
     @GetMapping("/lista-formulario")
     public ResponseEntity<Map<String, Object>> buscarListaFormulario() {
         Map<String, Object> resposta = new HashMap<>();
-        resposta.put("especialidade", converter.converter(especialidadeRepository.findAll(), EspecialidadeDTO.class));
-        resposta.put("estado", converter.converter(estadoRepository.findAll(), EstadoDTO.class));
-        resposta.put("cidade", converter.converter(cidadeRepository.findAll(), CidadeDTO.class));
+        resposta.put("especialidade", converter.converter(especialidadeRepository.findAll(), EspecialidadeDTO.class, false));
+        resposta.put("estado", converter.converter(estadoRepository.findAll(), EstadoDTO.class, false));
+        resposta.put("cidade", converter.converter(cidadeRepository.findAll(), CidadeDTO.class, false));
         return new ResponseEntity<>(resposta, HttpStatus.OK);
     }
 
